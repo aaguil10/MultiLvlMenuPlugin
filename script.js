@@ -59,114 +59,28 @@
 
 	//makes the list scroll when mouse is hovering
 	$.fn.multLvlMenu.scroll = function(ul_curr){
-		console.log("Entered scroll!");
 		var maxHeight = 200;
 		var $container = ul_curr,
-		$list = $container,
+		$list = $container, //makes it easier to read the difference from container and list.
         $anchor = $container.find("a"),
         height = $list.height() * 1.1,       // make sure there is enough room at the bottom
         multiplier = height / maxHeight;
-		
-		
 		$container.data("origHeight", $container.height());
-		// don't do any animation if list shorter than max
-		if (multiplier > 1) {
-			//console.log("in if stament!");
+		if (multiplier > 1) {	// don't do any animation if list shorter than max
             $container.css({
                 height: maxHeight,
                 overflow: "hidden"
             })
 			.mousemove(function(e) {
-				//console.log("moving!" + -e.pageY);
                 var offset = $container.offset();
 				var multiply = ($list[0].scrollHeight * 1.1) / 200;
-                var relativeY = ((e.pageY - offset.top) * multiply) - ($container.data("origHeight") * 1.1);
-				var myWay = -( relativeY  + 1*$container.data("origHeight")); 
-                //if (relativeY > $container.data("origHeight")) {
-                //    $list.children().css("top", -e.pageY);
-                //};
-				$list.children().css("top", myWay );	//moves list
-				console.log("container.offset().top: " + $container.offset().top);
-				console.log("e.pageY: " + e.pageY);
-				console.log("$container.data('origHeight'): " + $container.data("origHeight"));
-				console.log("$list[0].scrollHeight: " + $list[0].scrollHeight);
-				console.log("multiplier: " + multiplier);
+                var relativeY = ((e.pageY - offset.top) * multiply) - ($container.data("origHeight") * 1.2);
+				var finalTopValue = -( relativeY  + 1*$container.data("origHeight"));
+				$list.children().css("top", finalTopValue );	//moves list
             });
 		}
 	};
-	
 }( jQuery ));
 
 
 
-$( document ).ready(function() {
-   $( "#ul-menu" ).multLvlMenu(); 
-   $( "#ul-menu2" ).multLvlMenu();
-   
-});
-
-
-////////////Inspiration code from another plug-in/////////
-var maxHeight = 400;
-$(function(){
-
-    $(".dropdown > li").hover(function() {
-    
-         var $container = $(this),
-             $list = $container.find("ul"),
-             $anchor = $container.find("a"),
-             height = $list.height() * 1.1,       // make sure there is enough room at the bottom
-             multiplier = height / maxHeight;     // needs to move faster if list is taller
-        
-        // need to save height here so it can revert on mouseout            
-        //$container.data("origHeight", $container.height());
-        
-        // so it can retain it's rollover color all the while the dropdown is open
-        //$anchor.addClass("hover");
-        
-        // make sure dropdown appears directly below parent list item    
-        /*$list
-            .show()
-            .css({
-                paddingTop: $container.data("origHeight")
-            }); */
-        
-        // don't do any animation if list shorter than max
-        if (multiplier > 1) {
-            $container
-                .css({
-                    height: maxHeight,
-                    overflow: "hidden"
-                })
-                .mousemove(function(e) {
-                    var offset = $container.offset();
-                    var relativeY = ((e.pageY - offset.top) * multiplier) - ($container.data("origHeight") * multiplier);
-                    if (relativeY > $container.data("origHeight")) {
-                        $list.css("top", -relativeY + $container.data("origHeight"));
-                    };
-                });
-        }
-        
-    }, function() {
-    
-        var $el = $(this);
-        
-        // put things back to normal
-        $el
-            .height($(this).data("origHeight"))
-            .find("ul")
-            .css({ top: 0 })
-            .hide()
-            .end()
-            .find("a")
-            .removeClass("hover");
-    
-    });
-    
-    // Add down arrow only to menu items with submenus
-    $(".dropdown > li:has('ul')").each(function() {
-        //$(this).find("a:first").append("<img src='images/down-arrow.png' />");
-    });
-    
-    
-});
