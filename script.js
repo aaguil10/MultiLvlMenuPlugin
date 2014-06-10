@@ -66,6 +66,8 @@
         $anchor = $container.find("a"),
         height = $list.height() * 1.1,       // make sure there is enough room at the bottom
         multiplier = height / maxHeight;
+		
+		
 		$container.data("origHeight", $container.height());
 		// don't do any animation if list shorter than max
 		if (multiplier > 1) {
@@ -77,12 +79,18 @@
 			.mousemove(function(e) {
 				//console.log("moving!" + -e.pageY);
                 var offset = $container.offset();
-                var relativeY = ((e.pageY - offset.top) * multiplier) - ($container.data("origHeight") * multiplier);
-				var myWay = -( relativeY  + $container.data("origHeight") ) 
-                if (relativeY > $container.data("origHeight")) {
-                    $list.children().css("top", -e.pageY);
-                };
+				var multiply = ($list[0].scrollHeight * 1.1) / 200;
+                var relativeY = ((e.pageY - offset.top) * multiply) - ($container.data("origHeight") * 1.1);
+				var myWay = -( relativeY  + 1*$container.data("origHeight")); 
+                //if (relativeY > $container.data("origHeight")) {
+                //    $list.children().css("top", -e.pageY);
+                //};
 				$list.children().css("top", myWay );	//moves list
+				console.log("container.offset().top: " + $container.offset().top);
+				console.log("e.pageY: " + e.pageY);
+				console.log("$container.data('origHeight'): " + $container.data("origHeight"));
+				console.log("$list[0].scrollHeight: " + $list[0].scrollHeight);
+				console.log("multiplier: " + multiplier);
             });
 		}
 	};
