@@ -14,8 +14,17 @@ $( document ).ready(function() {
    $( "#ul-menu" ).multLvlMenu(); 
    $( "#ul-menu2" ).multLvlMenu();
    
-});
 
+
+/*$( "#ul-menu" ).mouseleave(function() {
+	console.log("Mouse Out!");
+	lastexit = $(this).children().first();
+	$(this).children().hide();
+	$(this).children().first().show();
+	//return true;
+});*/
+
+});
 </script>
 
 </head>
@@ -24,7 +33,7 @@ $( document ).ready(function() {
 <center><h1 id="title">MultiLevel Scrollable Menu</h1></center>
 
 <div class="dl-menuwrapper">
-<ul class="menu" id='ul-menu'><a href="#"><img src="menubtn.png" height="40" width="40"></a>
+<ul class="menu" id='ul-menu'><a href="#"><img id='gia' src="menubtn.png" height="40" width="40"></a>
     <li><a href="#">Bird</a>
 		<ul class="sub_menu">
 			<li><a class="backbtn" href="#">Back</a></li>
@@ -55,6 +64,8 @@ $( document ).ready(function() {
 		</ul>
 	</li>
     <li><a href="#">Fish</a></li>
+	<li><a href="#">Some Other Stuff</a></li>
+	<li><a href="#">And More Stuff</a></li>
 </ul>
 </div>
 

@@ -1,4 +1,4 @@
-
+var dontdoit = false;
 
 (function ( $ ) {
 	//Top level function that makes the list click able
@@ -7,15 +7,24 @@
 		var a_menu = original.children().first();
 		original.children().hide();
 		a_menu.show();
-		a_menu.click(function() {
-			original.children().show();
-			original.find("ul").each(function() {  //find every sub list and apply properties
+		original.find("ul").each(function() {  //find every sub list and apply properties
 				$(this).hide();
 				$.fn.multLvlMenu.movefoward( $(this), original );
+		});
+		a_menu.click(function() {
+			original.show();
+			original.find("ul").each(function() { 
+				$(this).hide();
 			});
+			$(this).siblings().show();
 			a_menu.hide();
 			return false;
 		});
+		original.mouseleave(function() { //reverts first level menu back to a button
+			//$(this).children().hide();
+			//$(this).children().first().show();
+		});
+		//$.fn.multLvlMenu.scroll( original ); 
         return this;
     };
 	
@@ -26,9 +35,11 @@
 		var parent_ul = ul_curr.parent().parent();
 		//setup back button
 		a_back.click(function() {
+			dontdoit = true;
 			$.fn.multLvlMenu.moveBack(ul_curr, orig);
 			return false;
 		});
+		$.fn.multLvlMenu.revertBack(ul_curr, orig);
 		//show next list of items
 		a_curr.click(function() {
 			$.fn.multLvlMenu.scroll( ul_curr ); //make scrollable
@@ -57,6 +68,24 @@
 		orignal.children().first().hide();
 	};
 
+	$.fn.multLvlMenu.revertBack = function(ul_curr, orignal){
+		if(dontdoit === true){return;}
+		ul_curr.mouseleave(function() {
+			var parent_ul = ul_curr.parent().parent();
+			var parent_a = ul_curr.parent().first().children().first();
+			parent_ul.children().show(); //show parent list
+			parent_a.show();
+			ul_curr.hide(); //hide everything else
+			parent_ul.find("ul").each(function() {
+				$(this).hide();
+			}); 
+			orignal.children().hide();
+			orignal.children().first().show();
+			if(parent_ul != orignal){
+				//$.fn.multLvlMenu.revertBack(parent_ul, orignal);
+			}
+		});
+	};
 	//makes the list scroll when mouse is hovering
 	$.fn.multLvlMenu.scroll = function(ul_curr){
 		var maxHeight = 200;
