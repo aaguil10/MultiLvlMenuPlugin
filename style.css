@@ -14,14 +14,42 @@ h1{
 
 }
 
+.dl-menuwrapper button:hover,
+.dl-menuwrapper button.dl-active,
+.dl-trigger{
+    border: none;
+    padding: 0;
+	background: #bbbbbb;
+}
+
+.dl-menuwrapper button:after {
+	/*content: '';*/
+	position: absolute;
+	width: 68%;
+	height: 5px;
+	background: #fff;
+	top: 10px;
+	left: 16%;
+	box-shadow: 
+		0 10px 0 #fff, 
+		0 20px 0 #fff;
+}
+
+.dl-menuwrapper button{
+	float: left;
+	position: relative;
+}
+
 .dl-menuwrapper:first-child {
 	margin-right: 100px;
 }
 
-.dl-menuwrapper ul {
+/*.dl-menuwrapper ul {
 	background: #bbbbbb;
 	top: 0;
-}
+	margin-top: 45px;
+	
+}*/
 
 .dl-menuwrapper li:hover{
 	background: #cccccc;
@@ -32,6 +60,9 @@ h1{
 	list-style: none;
 	float: left;
 	max-height: 200px;
+	background: #bbbbbb;
+	top: 0;
+	margin-top: 45px;
 }
 
 .dl-menuwrapper li {

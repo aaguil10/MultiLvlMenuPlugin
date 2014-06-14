@@ -1,23 +1,27 @@
-var dontdoit = false;
+
 
 (function ( $ ) {
 	//Top level function that makes the list click able
     $.fn.multLvlMenu = function() {
-		var original = $(this);
-		var a_menu = original.children().first();
+		var original = $(this).find("ul").first();
+		console.log("original: " + original.attr( "id" ));
+		//var a_menu = original.children().first();
 		original.children().hide();
-		a_menu.show();
+		//a_menu.show();
 		original.find("ul").each(function() {  //find every sub list and apply properties
 				$(this).hide();
 				$.fn.multLvlMenu.movefoward( $(this), original );
 		});
-		a_menu.click(function() {
-			original.show();
+		var menu_button = $(this).find("button").first();
+		console.log("menu_button: " + menu_button.attr( "id" ));
+		menu_button.click(function() {
+			console.log("I was clicked!");
+			original.children().show();
 			original.find("ul").each(function() { 
 				$(this).hide();
 			});
 			$(this).siblings().show();
-			a_menu.hide();
+			//a_menu.hide();
 			return false;
 		});
 		original.mouseleave(function() { //reverts first level menu back to a button
@@ -39,7 +43,7 @@ var dontdoit = false;
 			$.fn.multLvlMenu.moveBack(ul_curr, orig);
 			return false;
 		});
-		$.fn.multLvlMenu.revertBack(ul_curr, orig);
+		//$.fn.multLvlMenu.revertBack(ul_curr, orig);
 		//show next list of items
 		a_curr.click(function() {
 			$.fn.multLvlMenu.scroll( ul_curr ); //make scrollable
@@ -69,7 +73,6 @@ var dontdoit = false;
 	};
 
 	$.fn.multLvlMenu.revertBack = function(ul_curr, orignal){
-		if(dontdoit === true){return;}
 		ul_curr.mouseleave(function() {
 			var parent_ul = ul_curr.parent().parent();
 			var parent_a = ul_curr.parent().first().children().first();
@@ -81,9 +84,7 @@ var dontdoit = false;
 			}); 
 			orignal.children().hide();
 			orignal.children().first().show();
-			if(parent_ul != orignal){
-				//$.fn.multLvlMenu.revertBack(parent_ul, orignal);
-			}
+
 		});
 	};
 	//makes the list scroll when mouse is hovering

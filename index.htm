@@ -13,16 +13,7 @@
 $( document ).ready(function() {
    $( "#ul-menu" ).multLvlMenu(); 
    $( "#ul-menu2" ).multLvlMenu();
-   
 
-
-/*$( "#ul-menu" ).mouseleave(function() {
-	console.log("Mouse Out!");
-	lastexit = $(this).children().first();
-	$(this).children().hide();
-	$(this).children().first().show();
-	//return true;
-});*/
 
 });
 </script>
@@ -32,11 +23,13 @@ $( document ).ready(function() {
 <body>
 <center><h1 id="title">MultiLevel Scrollable Menu</h1></center>
 
-<div class="dl-menuwrapper">
-<ul class="menu" id='ul-menu'><a href="#"><img id='gia' src="menubtn.png" height="40" width="40"></a>
-    <li><a href="#">Bird</a>
-		<ul class="sub_menu">
-			<li><a class="backbtn" href="#">Back</a></li>
+<div class="dl-menuwrapper" id='ul-menu'>
+<!--<div><a href="#"><img id='gia' src="menubtn.png" height="40" width="40"></a></div>-->
+<button class="dl-trigger" id='button-trigger'><img id='img-button' src="menubtn.png" height="40" width="40"></button>
+<ul id='ul-menu' class="menu">
+    <li id='li-bird'><a id='a-bird' href="#">Bird</a>
+		<ul id='ul-bird' class="sub_menu">
+			<li id='li-backbird'><a id='a-backbird' class="backbtn" href="#">Back</a></li>
 			<li><a href="#">Falcons</a></li>
 			<li><a href="#">Sparrows</a></li>
 			<li><a href="#">Hawks</a></li>
@@ -47,10 +40,10 @@ $( document ).ready(function() {
 			<li><a href="#">Owls</a></li>
 		</ul>
 	</li>
-    <li><a href="#">Mammal</a>
+    <li id='li-mammal' ><a id='a-mammal' href="#">Mammal</a>
 		<ul class="sub_menu" id='ul-Mammals'>
-			<li><a class="backbtn" href="#">Back</a></li>
-			<li><a href="#">Humans</a>
+			<li id='li-mammalback' ><a id='a-mammalback' class="backbtn" href="#">Back</a></li>
+			<li id='li-humans' ><a id='a-humans' href="#">Humans</a>
 				<ul class="sub_menu" id='ul-Humans'>
 					<li><a class="backbtn" href="#">Back</a></li>
 					<li><a href="#">Mexicans</a></li>
@@ -59,18 +52,56 @@ $( document ).ready(function() {
 					<li><a href="#">Filipinos</a></li>
 				</ul>
 			</li>
-			<li><a href="#">Dogs</a></li>
-			<li><a href="#">Cats</a></li>
+			<li id='li-dogs'><a id='a-dogs' href="#">Dogs</a></li>
+			<li id='li-cats'><a id='a-cats' href="#">Cats</a></li>
 		</ul>
 	</li>
-    <li><a href="#">Fish</a></li>
-	<li><a href="#">Some Other Stuff</a></li>
-	<li><a href="#">And More Stuff</a></li>
+    <li id='li-fish'><a id='a-fish' href="#">Fish</a></li>
+	<li id='li-otherstuff'><a id='a-otherstuff' href="#">Some Other Stuff</a></li>
+	<li id='li-morestuff'><a id='a-morestuff' href="#">And More Stuff</a></li>
 </ul>
 </div>
 
+<div class="dl-menuwrapper" id='ul-menu2'>
+<!--<div><a href="#"><img id='gia' src="menubtn.png" height="40" width="40"></a></div>-->
+<button class="dl-trigger" id='button-trigger2'><img id='img-button2' src="menubtn.png" height="40" width="40"></button>
+<ul id='ul-menu2' class="menu">
+    <li id='li-bird2'><a id='a-bird2' href="#">Bird</a>
+		<ul id='ul-bird2' class="sub_menu">
+			<li id='li-backbird2'><a id='a-backbird2' class="backbtn" href="#">Back</a></li>
+			<li><a href="#">Falcons</a></li>
+			<li><a href="#">Sparrows</a></li>
+			<li><a href="#">Hawks</a></li>
+			<li><a href="#">Doves</a></li>
+			<li><a href="#">Ducks</a></li>
+			<li><a href="#">Finches</a></li>
+			<li><a href="#">Crows</a></li>
+			<li><a href="#">Owls</a></li>
+		</ul>
+	</li>
+    <li id='li-mammal2' ><a id='a-mammal2' href="#">Mammal</a>
+		<ul class="sub_menu" id='ul-Mammals2'>
+			<li id='li-mammalback2' ><a id='a-mammalback2' class="backbtn" href="#">Back</a></li>
+			<li id='li-humans2' ><a id='a-humans2' href="#">Humans</a>
+				<ul class="sub_menu" id='ul-Humans2'>
+					<li><a class="backbtn" href="#">Back</a></li>
+					<li><a href="#">Mexicans</a></li>
+					<li><a href="#">Asians</a></li>
+					<li><a href="#">Africans</a></li>
+					<li><a href="#">Filipinos</a></li>
+				</ul>
+			</li>
+			<li id='li-dogs2'><a id='a-dogs2' href="#">Dogs</a></li>
+			<li id='li-cats2'><a id='a-cats2' href="#">Cats</a></li>
+		</ul>
+	</li>
+    <li id='li-fish2'><a id='a-fish2' href="#">Fish</a></li>
+	<li id='li-otherstuff2'><a id='a-otherstuff2' href="#">Some Other Stuff</a></li>
+	<li id='li-morestuff2'><a id='a-morestuff2' href="#">And More Stuff</a></li>
+</ul>
+</div>
 
-<div class="dl-menuwrapper">
+<!--<div class="dl-menuwrapper">
 <ul class="menu" id='ul-menu2'><a href="#"><img src="menubtn.png" height="40" width="40"></a>
     <li><a href="#">Bird2</a>
 		<ul class="sub_menu">
@@ -111,7 +142,7 @@ $( document ).ready(function() {
 			
 			</li>
 			<li><a href="#">Cats2</a>
-				<ul class="sub_menu"><!-- NOT recommended that you use this many list items-->
+				<ul class="sub_menu"><!-- NOT recommended that you use this many list items
 					<li><a class="backbtn" href="#">Back</a></li>
 					<li><a href="#">meow</a></li>
 					<li><a href="#">meow</a></li>
@@ -176,7 +207,7 @@ $( document ).ready(function() {
     <li><a href="#">Fish2</a></li>
 </ul>
 </div>
-
+-->
 
 
 
