@@ -39,7 +39,6 @@
 		var parent_ul = ul_curr.parent().parent();
 		//setup back button
 		a_back.click(function() {
-			dontdoit = true;
 			$.fn.multLvlMenu.moveBack(ul_curr, orig);
 			return false;
 		});
@@ -65,6 +64,8 @@
 		var parent_a = ul_curr.parent().first().children().first();
 		parent_ul.children().show(); //show parent list
 		parent_a.show();
+		parent_a.children().find("text").show();
+		console.log("parent_a: " + parent_a.attr( "id" ));
 		ul_curr.hide(); //hide everything else
 		parent_ul.find("ul").each(function() {
 			$(this).hide();
