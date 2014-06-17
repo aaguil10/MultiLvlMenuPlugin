@@ -4,10 +4,10 @@
 	//Top level function that makes the list click able
     $.fn.multLvlMenu = function() {
 		var original = $(this).find("ul").first();
+		original.data("toggle", 0);
+		original.data("curr_ul", null);
 		console.log("original: " + original.attr( "id" ));
-		//var a_menu = original.children().first();
 		original.children().hide();
-		//a_menu.show();
 		original.find("ul").each(function() {  //find every sub list and apply properties
 				$(this).hide();
 				$.fn.multLvlMenu.movefoward( $(this), original );
@@ -15,14 +15,34 @@
 		var menu_button = $(this).find("button").first();
 		console.log("menu_button: " + menu_button.attr( "id" ));
 		menu_button.click(function() {
-			console.log("I was clicked!");
-			original.children().show();
-			original.find("ul").each(function() { 
-				$(this).hide();
-			});
-			$(this).siblings().show();
-			//$(this).show();
-			//a_menu.hide();
+		
+			if(original.data("toggle") === 0){
+				original.data("toggle", 1);
+				console.log("original.data('toggle'): " + original.data("toggle") );
+				console.log("I was clicked!");
+				original.children().show();
+				original.find("ul").each(function() { 
+					$(this).hide();
+				});
+				$(this).siblings().show();
+			}else{
+				original.data("toggle", 0);
+				console.log("original.data('toggle'): " + original.data("toggle"));
+				if (original.data("curr_ul") != null){
+					console.log("original.data('urr_ul'): " + original.data("curr_ul").attr( "id" ) );
+					var ul_curr = original.data("curr_ul");
+					$.fn.multLvlMenu.recurDisplay(ul_curr, original);
+					//var parent_a = ul_curr.parent().first().children().first();
+					//var parent_ul = ul_curr.parent().parent();
+					//parent_a.show();
+					//console.log(parent_ul.attr('id'), 'vs', original.attr('id') );
+				}
+				original.children().hide();
+				original.find("ul").each(function() {  //find every sub list and apply properties
+					$(this).hide();
+				});
+			}
+			
 			return false;
 		});
 		original.mouseleave(function() { //reverts first level menu back to a button
@@ -46,19 +66,18 @@
 		//$.fn.multLvlMenu.revertBack(ul_curr, orig);
 		//show next list of items
 		a_curr.click(function() {
+			orig.data("curr_ul", ul_curr);
 			$.fn.multLvlMenu.scroll( ul_curr ); //make scrollable
 			orig.find("ul").each(function() {
 				$(this).show();
 			});
 			ul_curr.parent().siblings().hide();
-			//var parents = ul_curr.parent().parent().first().attr( "id" );
-			//console.log("parents: " + parents);
-			//parents.hide();
 			a_curr.hide();
 			ul_curr.find("ul").each(function() {
 				$(this).hide();
 			});
 			return false;
+			
 		});
 	};
 	
@@ -77,6 +96,20 @@
 		//orignal.children().first().hide();
 	};
 
+	$.fn.multLvlMenu.recurDisplay = function(ul_curr, orignal){
+		if(ul_curr === orignal){
+			//return;
+		}
+		var parent_a = ul_curr.parent().first().children().first();
+		var parent_ul = ul_curr.parent().parent();
+		parent_a.show();
+		parent_ul.children().show();
+		console.log(parent_ul.attr('id'), 'vs', orignal.attr('id') );
+		if(parent_ul.is(orignal) === false){
+			$.fn.multLvlMenu.recurDisplay(parent_ul, orignal);
+		}
+	}
+	
 	$.fn.multLvlMenu.revertBack = function(ul_curr, orignal){
 		ul_curr.mouseleave(function() {
 			var parent_ul = ul_curr.parent().parent();
