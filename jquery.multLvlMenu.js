@@ -21,6 +21,7 @@
 				$(this).hide();
 			});
 			$(this).siblings().show();
+			//$(this).show();
 			//a_menu.hide();
 			return false;
 		});
@@ -50,6 +51,9 @@
 				$(this).show();
 			});
 			ul_curr.parent().siblings().hide();
+			//var parents = ul_curr.parent().parent().first().attr( "id" );
+			//console.log("parents: " + parents);
+			//parents.hide();
 			a_curr.hide();
 			ul_curr.find("ul").each(function() {
 				$(this).hide();
@@ -70,7 +74,7 @@
 		parent_ul.find("ul").each(function() {
 			$(this).hide();
 		});
-		orignal.children().first().hide();
+		//orignal.children().first().hide();
 	};
 
 	$.fn.multLvlMenu.revertBack = function(ul_curr, orignal){
