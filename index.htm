@@ -13,8 +13,8 @@
 $( document ).ready(function() {
    $( "#div-menuwrapper" ).multLvlMenu(); 
    $( "#div-menuwrapper2" ).multLvlMenu();
-
-
+	$( "#div-menuwrapper3" ).multLvlMenu();
+	
 });
 </script>
 
@@ -23,6 +23,7 @@ $( document ).ready(function() {
 <body>
 <center><h1 id="title">MultiLevel Scrollable Menu</h1></center>
 
+<p>
 <div class="dl-menuwrapper" id='div-menuwrapper'>
 <!--<div><a href="#"><img id='gia' src="menubtn.png" height="40" width="40"></a></div>-->
 <button class="dl-trigger" id='button-trigger'><img id='img-button' src="menubtn.png" height="40" width="40"></button>
@@ -60,8 +61,10 @@ $( document ).ready(function() {
 	<li id='li-otherstuff'><a id='a-otherstuff' href="#">Some Other Stuff</a></li>
 	<li id='li-morestuff'><a id='a-morestuff' href="#">And More Stuff</a></li>
 </ul>
-</div>
+</div> The Button is right next to me!</p>
 
+
+<p>
 <div class="dl-menuwrapper" id='div-menuwrapper2'>
 <!--<div><a href="#"><img id='gia' src="menubtn.png" height="40" width="40"></a></div>-->
 <button class="dl-trigger" id='button-trigger2'><img id='img-button2' src="menubtn.png" height="40" width="40"></button>
@@ -100,9 +103,13 @@ $( document ).ready(function() {
 	<li id='li-morestuff2'><a id='a-morestuff2' href="#">And More Stuff</a></li>
 </ul>
 </div>
+</p>
 
-<!--<div class="dl-menuwrapper">
-<ul class="menu" id='ul-menu2'><a href="#"><img src="menubtn.png" height="40" width="40"></a>
+
+<p>
+<div class="dl-menuwrapper" id='div-menuwrapper3'>
+<button class="dl-trigger"><img src="menubtn.png" height="40" width="40"></button>
+<ul class="menu">
     <li><a href="#">Bird2</a>
 		<ul class="sub_menu">
 			<li><a class="backbtn" href="#">Back</a></li>
@@ -142,7 +149,7 @@ $( document ).ready(function() {
 			
 			</li>
 			<li><a href="#">Cats2</a>
-				<ul class="sub_menu"><!-- NOT recommended that you use this many list items
+				<ul class="sub_menu"><!-- NOT recommended that you use this many list items -->
 					<li><a class="backbtn" href="#">Back</a></li>
 					<li><a href="#">meow</a></li>
 					<li><a href="#">meow</a></li>
@@ -207,7 +214,7 @@ $( document ).ready(function() {
     <li><a href="#">Fish2</a></li>
 </ul>
 </div>
--->
+</p>
 
 
 

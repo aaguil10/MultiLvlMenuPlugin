@@ -3,6 +3,18 @@
 (function ( $ ) {
 	//Top level function that makes the list click able
     $.fn.multLvlMenu = function() {
+	
+	$(this).hover(function() {
+		if(original.data("toggle") === 0){
+			$(this).animate({opacity:1},100);
+		}
+    });
+	$(this).mouseleave(function() {
+		if(original.data("toggle") === 0){
+			$(this).animate({opacity:0},100);
+		}
+    });
+	
 		var original = $(this).find("ul").first();
 		original.data("toggle", 0);	//used to toggle menu off and on
 		original.data("curr_ul", null);	//used to get the current sub-menu being displayed
