@@ -124,9 +124,9 @@
 		}
 	};
 	
+	//Makes menu disappear if user clicks outside of div
 	$.fn.multLvlMenu.click_out = function(wrapper,original){
 		$('body').click(function () {
-			console.log("Clicked Outside");
 			original.data("toggle", 0);
 				if (original.data("curr_ul") != null){
 					var ul_curr = original.data("curr_ul");
@@ -140,7 +140,6 @@
 		});
 		wrapper.click(function (e) {
 			e.stopPropagation();
-		//	return false;
 		});
 	}
 	
