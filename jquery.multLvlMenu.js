@@ -3,22 +3,23 @@
 (function ( $ ) {
 	//Top level function that makes the list click able
     $.fn.multLvlMenu = function() {
-	
-	$(this).hover(function() {
-		if(original.data("toggle") === 0){
-			$(this).animate({opacity:1},100);
-		}
-    });
-	$(this).mouseleave(function() {
-		if(original.data("toggle") === 0){
-			$(this).animate({opacity:0},100);
-		}
-    });
+		//Fades in if hovered over
+		$(this).hover(function() {
+			if(original.data("toggle") === 0){
+				$(this).animate({opacity:1},100);
+			}
+		});
+		//fades out when mouse leaves
+		$(this).mouseleave(function() {
+			if(original.data("toggle") === 0){
+				$(this).animate({opacity:0},100);
+			}
+		});
 	
 		var original = $(this).find("ul").first();
 		original.data("toggle", 0);	//used to toggle menu off and on
 		original.data("curr_ul", null);	//used to get the current sub-menu being displayed
-		//console.log("original: " + original.attr( "id" ));
+		$.fn.multLvlMenu.click_out($(this), original);
 		original.children().hide();
 		original.find("ul").each(function() {  //find every sub list and apply properties
 				$(this).hide();
@@ -122,6 +123,27 @@
             });
 		}
 	};
+	
+	$.fn.multLvlMenu.click_out = function(wrapper,original){
+		$('body').click(function () {
+			console.log("Clicked Outside");
+			original.data("toggle", 0);
+				if (original.data("curr_ul") != null){
+					var ul_curr = original.data("curr_ul");
+					$.fn.multLvlMenu.recurDisplay(ul_curr, original);
+				}
+				original.children().hide();
+				original.find("ul").each(function() {  //find every sub list and apply properties
+					$(this).hide();
+				});
+			return false;
+		});
+		wrapper.click(function (e) {
+			e.stopPropagation();
+		//	return false;
+		});
+	}
+	
 }( jQuery ));
 
 
