@@ -4,6 +4,7 @@
 	//Top level function that makes the list click able
     $.fn.multLvlMenu = function() {
 		//Fades in if hovered over
+		var wrapper = $(this);
 		$(this).hover(function() {
 			if(original.data("toggle") === 0){
 				$(this).animate({opacity:1},100);
@@ -17,6 +18,11 @@
 		});
 	
 		var original = $(this).find("ul").first();
+		$(".dl-menuwrapper li:not(ul)" ).click(function () {
+			console.log("Clicked the end!");
+			$.fn.multLvlMenu.close_menu(original, wrapper);
+		});
+		
 		original.data("toggle", 0);	//used to toggle menu off and on
 		original.data("curr_ul", null);	//used to get the current sub-menu being displayed
 		$.fn.multLvlMenu.click_out($(this), original);
@@ -124,19 +130,25 @@
 		}
 	};
 	
-	//Makes menu disappear if user clicks outside of div
+	//Closes an open menu properly.
+	$.fn.multLvlMenu.close_menu = function(original, wrapper){
+		original.data("toggle", 0);
+		wrapper.animate({opacity:0},100);
+		if (original.data("curr_ul") != null){
+			var ul_curr = original.data("curr_ul");
+				$.fn.multLvlMenu.recurDisplay(ul_curr, original);
+			}
+			original.children().hide();
+			original.find("ul").each(function() {  //find every sub list and apply properties
+				$(this).hide();
+			});
+		return false;
+	};
+	
+	//close if user clicks outside of menu
 	$.fn.multLvlMenu.click_out = function(wrapper,original){
-		$('body').click(function () {
-			original.data("toggle", 0);
-				if (original.data("curr_ul") != null){
-					var ul_curr = original.data("curr_ul");
-					$.fn.multLvlMenu.recurDisplay(ul_curr, original);
-				}
-				original.children().hide();
-				original.find("ul").each(function() {  //find every sub list and apply properties
-					$(this).hide();
-				});
-			return false;
+		$('html').click(function () {
+			$.fn.multLvlMenu.close_menu(original,wrapper);
 		});
 		wrapper.click(function (e) {
 			e.stopPropagation();
