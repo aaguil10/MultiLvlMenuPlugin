@@ -18,11 +18,16 @@
 		});
 	
 		var original = $(this).find("ul").first();
+		
+		//original.data("curr_ul", original);
+		//$.fn.multLvlMenu.scroll($(original));
+		//$.fn.multLvlMenu.movefoward( $(this), original );
+		
 		$(".dl-menuwrapper li:not(ul)" ).click(function () {
 			console.log("Clicked the end!");
 			$.fn.multLvlMenu.close_menu(original, wrapper);
 		});
-		
+		//$.fn.multLvlMenu.scroll(original);
 		original.data("toggle", 0);	//used to toggle menu off and on
 		original.data("curr_ul", null);	//used to get the current sub-menu being displayed
 		$.fn.multLvlMenu.click_out($(this), original);
@@ -32,10 +37,13 @@
 				$.fn.multLvlMenu.movefoward( $(this), original );
 		});
 		var menu_button = $(this).find("button").first();
+		
 		menu_button.click(function() {
 			if(original.data("toggle") === 0){	//if menu is not displaying display menu
 				original.data("toggle", 1);
 				original.children().show();
+				original.data("curr_ul", original);
+				$.fn.multLvlMenu.scroll(original);
 				original.find("ul").each(function() { 
 					$(this).hide();
 				});
@@ -108,6 +116,7 @@
 	
 	//makes the list scroll when mouse is hovering
 	$.fn.multLvlMenu.scroll = function(ul_curr){
+		console.log("scroll called: ", ul_curr.attr('id') );
 		var maxHeight = 200;
 		var $container = ul_curr,
 		$list = $container, //makes it easier to read the difference from container and list.
