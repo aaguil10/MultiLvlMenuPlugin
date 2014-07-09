@@ -18,16 +18,10 @@
 		});
 	
 		var original = $(this).find("ul").first();
-		
-		//original.data("curr_ul", original);
-		//$.fn.multLvlMenu.scroll($(original));
-		//$.fn.multLvlMenu.movefoward( $(this), original );
-		
 		$(".dl-menuwrapper li:not(ul)" ).click(function () {
 			console.log("Clicked the end!");
-			$.fn.multLvlMenu.close_menu(original, wrapper);
+			$.fn.multLvlMenu.close_menu(original, wrapper, false);
 		});
-		//$.fn.multLvlMenu.scroll(original);
 		original.data("toggle", 0);	//used to toggle menu off and on
 		original.data("curr_ul", null);	//used to get the current sub-menu being displayed
 		$.fn.multLvlMenu.click_out($(this), original);
@@ -42,22 +36,13 @@
 			if(original.data("toggle") === 0){	//if menu is not displaying display menu
 				original.data("toggle", 1);
 				original.children().show();
-				original.data("curr_ul", original);
 				$.fn.multLvlMenu.scroll(original);
 				original.find("ul").each(function() { 
 					$(this).hide();
 				});
 				$(this).siblings().show();
 			}else{	//if menu is displaying hide menu
-				original.data("toggle", 0);
-				if (original.data("curr_ul") != null){
-					var ul_curr = original.data("curr_ul");
-					$.fn.multLvlMenu.recurDisplay(ul_curr, original);
-				}
-				original.children().hide();
-				original.find("ul").each(function() {  //find every sub list and apply properties
-					$(this).hide();
-				});
+				$.fn.multLvlMenu.close_menu(original, wrapper, false);
 			}	
 			return false;
 		});
@@ -116,7 +101,6 @@
 	
 	//makes the list scroll when mouse is hovering
 	$.fn.multLvlMenu.scroll = function(ul_curr){
-		console.log("scroll called: ", ul_curr.attr('id') );
 		var maxHeight = 200;
 		var $container = ul_curr,
 		$list = $container, //makes it easier to read the difference from container and list.
@@ -131,7 +115,7 @@
             })
 			.mousemove(function(e) {
                 var offset = $container.offset();
-				var multiply = ($list[0].scrollHeight * 1.1) / 200;
+				var multiply = ($list[0].scrollHeight * 1.1) / maxHeight;
                 var relativeY = ((e.pageY - offset.top) * multiply) - ($container.data("origHeight") * 1.2);
 				var finalTopValue = -( relativeY  + 1*$container.data("origHeight"));
 				$list.children().css("top", finalTopValue );	//moves list
@@ -140,9 +124,11 @@
 	};
 	
 	//Closes an open menu properly.
-	$.fn.multLvlMenu.close_menu = function(original, wrapper){
+	$.fn.multLvlMenu.close_menu = function(original, wrapper, anime){
 		original.data("toggle", 0);
-		wrapper.animate({opacity:0},100);
+		if(anime === true){
+			wrapper.animate({opacity:0},100);
+		}
 		if (original.data("curr_ul") != null){
 			var ul_curr = original.data("curr_ul");
 				$.fn.multLvlMenu.recurDisplay(ul_curr, original);
@@ -151,13 +137,14 @@
 			original.find("ul").each(function() {  //find every sub list and apply properties
 				$(this).hide();
 			});
+			original.hide();
 		return false;
 	};
 	
 	//close if user clicks outside of menu
 	$.fn.multLvlMenu.click_out = function(wrapper,original){
 		$('html').click(function () {
-			$.fn.multLvlMenu.close_menu(original,wrapper);
+			$.fn.multLvlMenu.close_menu(original,wrapper, true);
 		});
 		wrapper.click(function (e) {
 			e.stopPropagation();
